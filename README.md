@@ -1,5 +1,5 @@
-# DAWII-Sesion05BackendFinalizado
-### Servicio Rest - Dos Tablas relacionadas con Ubigeo
+# DAWII-Sesion07BackendFinalizado
+### Servicio Rest - Consultas en dos Tablas relacionadas
 
 ## Autor ✒️
 
