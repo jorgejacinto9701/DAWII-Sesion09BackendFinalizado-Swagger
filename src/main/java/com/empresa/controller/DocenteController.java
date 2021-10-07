@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,4 +52,13 @@ public class DocenteController {
 		return ResponseEntity.ok(salida);
 	}
 
+	@GetMapping("/porNombre/{filtro}")
+	@ResponseBody
+	public ResponseEntity<List<Docente>> listaDocente(@PathVariable("filtro") String filtro) {
+		List<Docente> lista = docenteService.listaDocentePorNombreLike(filtro + "%");
+		return ResponseEntity.ok(lista);
+	}
+	
+	
+	
 }
