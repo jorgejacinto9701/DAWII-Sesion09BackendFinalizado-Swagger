@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Docente;
+import com.empresa.entity.FiltroAlumno;
 import com.empresa.service.DocenteService;
 import com.empresa.util.Constantes;
 
@@ -59,6 +61,41 @@ public class DocenteController {
 		return ResponseEntity.ok(lista);
 	}
 	
+	@GetMapping("/porNombreDniDinamico")
+	@ResponseBody
+	public ResponseEntity<HashMap<String, Object>> listadoPorNombreYDni(@RequestBody FiltroAlumno filtro){       
+		HashMap<String, Object> salida = new HashMap<String, Object>();
+		try {
+		 	List<Docente> lista =  docenteService.listaDocentePorNombreDni(filtro.getNombre(), filtro.getDni());
+		 	if (CollectionUtils.isEmpty(lista)) {
+		 		salida.put("mensaje", "No existe datos para esa consulta");	
+		 	}else {
+		 		salida.put("lista", lista);	
+		 	}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok(salida);
+	}
+	
+	@GetMapping("/porNombreDni/{nombre}/{dni}")
+	@ResponseBody
+	public ResponseEntity<HashMap<String, Object>> listadoPorNombreYDni(
+															@PathVariable("nombre") String nombre, 
+															@PathVariable("dni") String dni){       
+		HashMap<String, Object> salida = new HashMap<String, Object>();
+		try {
+		 	List<Docente> lista =  docenteService.listaDocentePorNombreDni(nombre, dni);
+		 	if (CollectionUtils.isEmpty(lista)) {
+		 		salida.put("mensaje", "No existe datos para esa consulta");	
+		 	}else {
+		 		salida.put("lista", lista);	
+		 	}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok(salida);
+	}
 	
 	
 }

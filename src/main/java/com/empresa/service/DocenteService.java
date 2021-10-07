@@ -12,6 +12,8 @@ public interface DocenteService {
 	
 	public abstract List<Docente> listaDocentePorNombreLike(String filtro);
 	
+	public abstract List<Docente> listaDocentePorNombreDni(String nombre, String dni);
+	
 	
 
 }

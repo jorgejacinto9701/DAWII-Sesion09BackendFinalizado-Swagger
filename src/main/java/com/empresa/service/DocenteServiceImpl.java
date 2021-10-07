@@ -29,4 +29,9 @@ public class DocenteServiceImpl implements DocenteService {
 		return repository.findByNombreLike(filtro);
 	}
 
+	@Override
+	public List<Docente> listaDocentePorNombreDni(String nombre, String dni) {
+		return repository.listaPorNombreDni(nombre, dni);
+	}
+
 }
