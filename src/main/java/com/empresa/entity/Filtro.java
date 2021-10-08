@@ -1,6 +1,6 @@
 package com.empresa.entity;
 
-public class FiltroAlumno {
+public class Filtro {
 
 	private String nombre;
 	private String dni;

@@ -10,11 +10,14 @@ import com.empresa.entity.Docente;
 
 public interface DocenteRepository extends JpaRepository<Docente, Integer> {
 
-	public abstract List<Docente> findByNombreLike(String filtro);
+	public List<Docente> findByNombreLike(String filtro);
 	
-	@Query("select e from Docente e where e.nombre =:param_nom and e.dni =:param_dni")
-	public abstract List<Docente> listaPorNombreDni(@Param("param_nom") String nombre,@Param("param_dni") String dni);
-
+	public List<Docente> findByDni(String filtro);
+	
+	@Query("Select e from Docente e where e.nombre like :param_nom and e.dni = :param_dni")
+	public List<Docente> listaPorNombreDni(@Param("param_nom") String nombre, @Param("param_dni") String dni);
+	
+	
 }
 
 

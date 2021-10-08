@@ -11,9 +11,9 @@ public interface DocenteService {
 	public abstract Docente insertaActualizaDocente(Docente obj);
 	
 	public abstract List<Docente> listaDocentePorNombreLike(String filtro);
+
+	public abstract List<Docente> listaDocentePorDni(String filtro);
 	
 	public abstract List<Docente> listaDocentePorNombreDni(String nombre, String dni);
 	
-	
-
 }
