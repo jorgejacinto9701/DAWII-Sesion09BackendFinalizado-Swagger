@@ -1,9 +1,10 @@
 package com.empresa.entity;
 
-public class Filtro {
-
+public class FiltroDocente {
+	
 	private String nombre;
 	private String dni;
+	private int idUbigeo;
 	
 	public String getNombre() {
 		return nombre;
@@ -17,6 +18,15 @@ public class Filtro {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+	public int getIdUbigeo() {
+		return idUbigeo;
+	}
+	public void setIdUbigeo(int idUbigeo) {
+		this.idUbigeo = idUbigeo;
+	}
+	
+	
+	
 	
 	
 }

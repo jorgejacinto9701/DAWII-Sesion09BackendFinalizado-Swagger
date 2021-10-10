@@ -8,5 +8,4 @@ public interface DeporteRepository extends JpaRepository<Deporte, Integer>  {
 
 	
 	
-	
 }
