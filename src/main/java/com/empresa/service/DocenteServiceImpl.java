@@ -41,8 +41,8 @@ public class DocenteServiceImpl implements DocenteService {
 	}
 
 	@Override
-	public List<Docente> listaPorFiltro(FiltroDocente filtro) {
-		return repository.listaPorFiltro(filtro);
+	public List<Docente> listaPorFiltro(FiltroDocente obj) {
+		return repository.listaPorFiltro(obj);
 	}
 
 }

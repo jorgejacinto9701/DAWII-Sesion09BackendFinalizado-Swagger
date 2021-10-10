@@ -54,53 +54,31 @@ public class DocenteController {
 		}
 		return ResponseEntity.ok(salida);
 	}
-
 	
 	@GetMapping("/porDni/{paramDni}")
 	@ResponseBody
-	public ResponseEntity<List<Docente>> listaPorDni(@PathVariable("paramDni")String dni) {
+	public ResponseEntity<List<Docente>> listaPorDni(@PathVariable("paramDni") String dni) {
 		List<Docente> lista = docenteService.listaDocentePorDni(dni);
 		return ResponseEntity.ok(lista);
 	}
 	
 	@GetMapping("/porNombre/{paramNombre}")
 	@ResponseBody
-	public ResponseEntity<List<Docente>> listaPorNombre(@PathVariable("paramNombre")String nombre) {
+	public ResponseEntity<List<Docente>> listaPorNombre(@PathVariable("paramNombre") String nombre) {
 		List<Docente> lista = docenteService.listaDocentePorNombre(nombre);
 		return ResponseEntity.ok(lista);
 	}
 	
+	
 	@GetMapping("/porDniNombre/{paramDni}/{paramNombre}")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> listaPorDniNombreSimple(
-														@PathVariable("paramDni")String dni,
-														@PathVariable("paramNombre")String nombre) {
+										@PathVariable("paramDni") String dni,
+										@PathVariable("paramNombre") String nombre) {
+
 		Map<String, Object> salida = new HashMap<String, Object>();
 		try {
-			List<Docente> lista = docenteService.listaDocentePorDniNombre(dni, "%"+ nombre+"%");
-			if (CollectionUtils.isEmpty(lista)) {
-				salida.put("mensaje", "No exite datos para consulta");	
-			}else {
-				salida.put("mensaje", "La consulta tiene " + lista.size() + " elementos");	
-				salida.put("lista", lista);
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-			salida.put("mensaje", "Error " + e.getMessage());
-		}
-		
-		return ResponseEntity.ok(salida);
-	}
-	
-	@GetMapping("/porDniNombreConParametros")
-	@ResponseBody
-	public ResponseEntity<Map<String, Object>> listaPorDniNombreParametros(
-				@RequestParam(value="dni") String dni,
-				@RequestParam(value="nombre", required = false, defaultValue = "" )String nombre) {
-		Map<String, Object> salida = new HashMap<String, Object>();
-		
-		try {
-			List<Docente> lista = docenteService.listaDocentePorDniNombre(dni, "%"+ nombre+"%");
+			List<Docente> lista = docenteService.listaDocentePorDniNombre(dni, "%"+nombre+"%");
 			if (CollectionUtils.isEmpty(lista)) {
 				salida.put("mensaje", "No exite datos para consulta");	
 			}else {
@@ -111,15 +89,38 @@ public class DocenteController {
 			e.printStackTrace();
 			salida.put("mensaje", "Error " + e.getMessage());
 		}
-		
+		return ResponseEntity.ok(salida);
+	}
+	
+	
+	@GetMapping("/porDniNombreConParametros")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> listaPorDniNombreConParametros(
+		@RequestParam(value = "dni", required = false, defaultValue = "") String dni,
+		@RequestParam(value = "nombre", required = false, defaultValue = "") String nombre) {
+
+		Map<String, Object> salida = new HashMap<String, Object>();
+		try {
+			List<Docente> lista = docenteService.listaDocentePorDniNombre(dni, "%"+nombre+"%");
+			if (CollectionUtils.isEmpty(lista)) {
+				salida.put("mensaje", "No exite datos para consulta");	
+			}else {
+				salida.put("mensaje", "La consulta tiene " + lista.size() + " elementos");	
+				salida.put("lista", lista);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", "Error " + e.getMessage());
+		}
 		return ResponseEntity.ok(salida);
 	}
 	
 	@GetMapping("/porDniNombreConJSON")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> listaPorDniNombreConJSON(@RequestBody FiltroDocente filtro) {
+	public ResponseEntity<Map<String, Object>> listaPorDniNombreConJSON(
+							@RequestBody FiltroDocente filtro) {
+
 		Map<String, Object> salida = new HashMap<String, Object>();
-		
 		try {
 			filtro.setNombre("%"+filtro.getNombre()+"%");
 			List<Docente> lista = docenteService.listaPorFiltro(filtro);
@@ -133,11 +134,15 @@ public class DocenteController {
 			e.printStackTrace();
 			salida.put("mensaje", "Error " + e.getMessage());
 		}
-		
 		return ResponseEntity.ok(salida);
 	}
-	
-	
+
 }
+
+
+
+
+
+
 
 
