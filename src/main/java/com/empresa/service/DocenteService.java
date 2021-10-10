@@ -15,7 +15,9 @@ public interface DocenteService {
 	
 	public abstract List<Docente> listaDocentePorNombre(String nombre);
 	
-	public abstract List<Docente> listaDocentePorDniNombre(String dni, String nombre);
+	public abstract List<Docente> listaDocentePorDniNombre(String dni,String nombre);
 	
-	public abstract List<Docente> listaPorFiltro(FiltroDocente obj);
+	public abstract List<Docente> listaDocentePorDniNombreUbigeo(String dni,String nombre, int idUbigeo);
+	
+	public abstract List<Docente> listaPorFiltro(FiltroDocente filtro);
 }

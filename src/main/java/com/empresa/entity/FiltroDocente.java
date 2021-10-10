@@ -5,6 +5,7 @@ public class FiltroDocente {
 	private String nombre;
 	private String dni;
 	private int idUbigeo;
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -23,6 +24,7 @@ public class FiltroDocente {
 	public void setIdUbigeo(int idUbigeo) {
 		this.idUbigeo = idUbigeo;
 	}
+	
 	
 	
 	
