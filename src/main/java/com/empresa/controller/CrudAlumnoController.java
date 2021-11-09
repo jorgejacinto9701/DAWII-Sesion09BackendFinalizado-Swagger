@@ -143,16 +143,16 @@ public class CrudAlumnoController {
 			if (obj.getIdAlumno() != 0) {
 				Alumno objSalida = alumnoService.insertaActualizaAlumno(obj);
 				if (objSalida == null) {
-					salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+					salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
 				} else {
-					salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+					salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
 				}	
 			}else {
 				salida.put("mensaje", "El ID del alumno debe ser diferente cero");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
 		}
 		return ResponseEntity.ok(salida);
 	}
