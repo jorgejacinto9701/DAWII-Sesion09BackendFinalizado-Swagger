@@ -17,10 +17,19 @@ public class Docente {
 	private int idDocente;
 	private String nombre;
 	private String dni;
-
+	private int estado;
+	
 	@ManyToOne
 	@JoinColumn(name = "idUbigeo")
 	private Ubigeo ubigeo;
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
 
 	public int getIdDocente() {
 		return idDocente;

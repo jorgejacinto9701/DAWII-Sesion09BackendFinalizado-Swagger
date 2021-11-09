@@ -1,23 +1,20 @@
 package com.empresa.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.empresa.entity.Docente;
-import com.empresa.entity.FiltroDocente;
 
 public interface DocenteService {
 
-	public abstract List<Docente> listaDocente();
+	//Para Consulta
+	public abstract List<Docente> listaDocentePorDniNombreUbigeo(String dni, String nombre, int idUbigeo);
 
+	//Para Crud
+	public abstract List<Docente> listaPorDni(String dni);
+	public abstract List<Docente> listaPorNombre(String nombre);
+	public abstract List<Docente> listaPorNombreLike(String nombre);
 	public abstract Docente insertaActualizaDocente(Docente obj);
-
-	public abstract List<Docente> listaDocentePorDni(String dni);
+	public abstract Optional<Docente> buscaPorId(int idDocente);
 	
-	public abstract List<Docente> listaDocentePorNombre(String nombre);
-	
-	public abstract List<Docente> listaDocentePorDniNombre(String dni,String nombre);
-	
-	public abstract List<Docente> listaDocentePorDniNombreUbigeo(String dni,String nombre, int idUbigeo);
-	
-	public abstract List<Docente> listaPorFiltro(FiltroDocente filtro);
 }
