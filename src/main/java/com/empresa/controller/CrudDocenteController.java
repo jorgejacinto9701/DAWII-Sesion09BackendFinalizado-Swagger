@@ -34,6 +34,20 @@ public class CrudDocenteController {
 	@Autowired
 	private DocenteService docenteService;
 
+	@GetMapping("/listaDocentePorNombreLike/")
+	@ResponseBody
+	public ResponseEntity<List<Docente>> listaDocenteTodos() {
+		log.info("==> listaDocenteTodos ");
+
+		List<Docente> lista = null;
+		try {
+			lista = docenteService.listaPorNombreLike("%%");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok(lista);
+	}
+	
 	@GetMapping("/listaDocentePorNombreLike/{nom}")
 	@ResponseBody
 	public ResponseEntity<List<Docente>> listaDocentePorNombreLike(@PathVariable("nom") String nom) {
