@@ -33,19 +33,6 @@ public class CrudDocenteController {
 	@Autowired
 	private DocenteService docenteService;
 
-	@GetMapping("/listaDocentePorNombreLike/")
-	@ResponseBody
-	public ResponseEntity<List<Docente>> listaDocenteTodos() {
-		log.info("==> listaDocenteTodos ");
-
-		List<Docente> lista = null;
-		try {
-			lista = docenteService.listaPorNombreLike("%%");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.ok(lista);
-	}
 	
 	@GetMapping("/listaDocentePorNombreLike/{nom}")
 	@ResponseBody
@@ -54,7 +41,12 @@ public class CrudDocenteController {
 
 		List<Docente> lista = null;
 		try {
-			lista = docenteService.listaPorNombreLike(nom + "%");
+			if (nom.equals("todos")) {
+				lista = docenteService.listaTodos();
+			}else {
+				lista = docenteService.listaPorNombreLike(nom + "%");	
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,6 +99,7 @@ public class CrudDocenteController {
 		log.info("==> actualizaDocente ==> ID : " + obj.getIdDocente());
 		log.info("==> actualizaDocente ==> DNI : " + obj.getDni());
 		log.info("==> actualizaDocente ==> Nombre : " + obj.getNombre());
+		log.info("==> actualizaDocente ==> Estado : " + obj.getEstado());
 		Map<String, Object> salida = new HashMap<>();
 		try {
 			if (obj.getIdDocente() == 0) {
