@@ -3,7 +3,6 @@ package com.empresa.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,37 +126,5 @@ public class CrudDocenteController {
 		return ResponseEntity.ok(salida);
 	}
 
-	@PutMapping("/actualizaEstadoDocente")
-	@ResponseBody
-	public ResponseEntity<Map<String, Object>> actualizaEstadoDocente(@RequestBody Docente obj) {
-		log.info("==> actualizaEstadoDocente ==> ID : " + obj.getIdDocente());
-		log.info("==> actualizaEstadoDocente ==> Estado : " + obj.getEstado());
-		Map<String, Object> salida = new HashMap<>();
-		try {
-			if (obj.getIdDocente() == 0) {
-				salida.put("mensaje", "El ID del Docente debe ser diferente cero");
-				return ResponseEntity.ok(salida);
-			}
-			
-			Optional<Docente> optDocente =  docenteService.buscaPorId(obj.getIdDocente());
-			if (optDocente.isEmpty()) {
-				salida.put("mensaje", "No existe el docente con ID : " + obj.getIdDocente());
-				return ResponseEntity.ok(salida);
-			}
-			
-			Docente objActualiza = optDocente.get();
-			objActualiza.setEstado(obj.getEstado());
-			
-			Docente objSalida = docenteService.insertaActualizaDocente(objActualiza);
-			if (objSalida == null) {
-				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
-			} else {
-				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
-		}
-		return ResponseEntity.ok(salida);
-	}
+	
 }
