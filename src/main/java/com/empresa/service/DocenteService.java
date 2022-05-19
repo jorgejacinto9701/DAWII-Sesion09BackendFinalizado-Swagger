@@ -7,7 +7,8 @@ import com.empresa.entity.Docente;
 public interface DocenteService {
 
 	//Para Consulta
-	public abstract List<Docente> listaDocentePorDniNombreUbigeo(String dni, String nombre, int idUbigeo);
+	public abstract List<Docente> listaDocentePorNombreDniUbigeo(String dni, String nombre, int idUbigeo,int estado);
+
 
 	//Para Crud
 	public abstract List<Docente> listaPorDni(String dni);

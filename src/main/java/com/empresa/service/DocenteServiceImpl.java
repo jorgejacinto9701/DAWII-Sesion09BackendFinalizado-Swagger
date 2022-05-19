@@ -16,9 +16,10 @@ public class DocenteServiceImpl implements DocenteService {
 
 	
 	@Override
-	public List<Docente> listaDocentePorDniNombreUbigeo(String dni, String nombre, int idUbigeo) {
-		return repository.listaDocentePorDniNombreUbigeo(dni, nombre, idUbigeo);
+	public List<Docente> listaDocentePorNombreDniUbigeo(String dni, String nombre, int idUbigeo, int estado) {
+		return repository.listaDocentePorNombreDniUbigeo(dni, nombre, idUbigeo, estado);
 	}
+
 
 
 	@Override

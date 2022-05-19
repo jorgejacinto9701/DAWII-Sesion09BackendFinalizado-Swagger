@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Docente;
 import com.empresa.service.DocenteService;
+import com.empresa.util.Constantes;
 
 @RestController
 @RequestMapping("/rest/docente")
@@ -25,26 +26,26 @@ public class DocenteController {
 	@Autowired
 	private DocenteService docenteService;
 
-	@GetMapping("/porDniNombreUbigeoConParametros")
+	@GetMapping("/listaDocenteConParametros")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> listaPrDniNombreUbigeoConParametros(
-			@RequestParam(value = "nombre", required = false, defaultValue = "") String nombre,
-			@RequestParam(value = "dni", required = false, defaultValue = "") String dni,
-			@RequestParam(value = "idUbigeo", required = false, defaultValue = "0") int idUbigeo) {
-		
-		Map<String, Object> salida = new HashMap<String, Object>();
+	public ResponseEntity<Map<String, Object>> listaDocenteNombreDniUbigeo(
+			@RequestParam(name = "nombre", required = false, defaultValue = "") String nombre,
+			@RequestParam(name = "dni", required = false, defaultValue = "") String dni,
+			@RequestParam(name = "idUbigeo", required = false, defaultValue = "-1") int idUbigeo,
+			@RequestParam(name = "estado", required = true, defaultValue = "1") int estado) {
+		Map<String, Object> salida = new HashMap<>();
 		try {
-			List<Docente> lista = docenteService.listaDocentePorDniNombreUbigeo(dni, "%"+nombre+"%", idUbigeo);
-			if(CollectionUtils.isEmpty(lista)){
-				salida.put("mensaje", "No existe elementos para la consulta");
+			List<Docente> lista = docenteService.listaDocentePorNombreDniUbigeo("%"+nombre+"%", dni, idUbigeo, estado);
+			if (CollectionUtils.isEmpty(lista)) {
+				salida.put("mensaje", "No existen datos para mostrar");
 			}else {
 				salida.put("lista", lista);
-				salida.put("mensaje", "Se tiene " + lista.size() + " elementos");
+				salida.put("mensaje", "Existen " + lista.size() + " elementos para mostrar");
 			}
 		} catch (Exception e) {
-			salida.put("mensaje", "Error : " + e.getMessage());
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 		}
-		
 		return ResponseEntity.ok(salida);
 	}
 	
