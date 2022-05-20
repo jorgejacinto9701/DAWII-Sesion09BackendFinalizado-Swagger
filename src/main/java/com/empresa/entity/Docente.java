@@ -18,18 +18,10 @@ public class Docente {
 	private String nombre;
 	private String dni;
 	private int estado;
-	
+	  
 	@ManyToOne
 	@JoinColumn(name = "idUbigeo")
 	private Ubigeo ubigeo;
-
-	public int getEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
 
 	public int getIdDocente() {
 		return idDocente;
@@ -41,6 +33,14 @@ public class Docente {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
 	public void setNombre(String nombre) {

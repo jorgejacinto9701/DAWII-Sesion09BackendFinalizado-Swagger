@@ -6,15 +6,12 @@ import com.empresa.entity.Docente;
 
 public interface DocenteService {
 
-	//Para Consulta
+	//Para la consulta
 	public abstract List<Docente> listaDocentePorNombreDniUbigeo(String dni, String nombre, int idUbigeo,int estado);
 
-
-	//Para Crud
-	public abstract List<Docente> listaPorDni(String dni);
-	public abstract List<Docente> listaPorNombre(String nombre);
-	public abstract List<Docente> listaPorNombreLike(String nombre);
-	public abstract List<Docente> listaTodos();
-	public abstract Docente insertaActualizaDocente(Docente obj);
+	//Para el Crud
+	public abstract Docente insertaActualizaDocente(Docente docente);
+	public abstract List<Docente> listaDocentePorNombreLike(String nombre);
+	
 	
 }

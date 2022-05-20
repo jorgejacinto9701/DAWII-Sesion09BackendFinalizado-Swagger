@@ -4,11 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,69 +20,39 @@ import com.empresa.entity.Docente;
 import com.empresa.service.DocenteService;
 import com.empresa.util.Constantes;
 
+@RestController
 @RequestMapping("/rest/crudDocente")
 @CrossOrigin(origins = "http://localhost:4200")
-@RestController
 public class CrudDocenteController {
 
-	private Logger log = LoggerFactory.getLogger(CrudDocenteController.class);
-
 	@Autowired
-	private DocenteService docenteService;
-
+	private DocenteService service;
+	
 	
 	@GetMapping("/listaDocentePorNombreLike/{nom}")
 	@ResponseBody
 	public ResponseEntity<List<Docente>> listaDocentePorNombreLike(@PathVariable("nom") String nom) {
-		log.info("==> listaDocentePorNombreLike ==> nom : " + nom);
-
-		List<Docente> lista = null;
+		List<Docente> lista  = null;
 		try {
-			if (nom.equals("todos")) {
-				lista = docenteService.listaTodos();
-			}else {
-				lista = docenteService.listaPorNombreLike(nom + "%");	
-			}
-			
+			lista = service.listaDocentePorNombreLike("%" + nom + "%");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ResponseEntity.ok(lista);
 	}
-
+	
 	@PostMapping("/registraDocente")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> insertaDocente(@RequestBody Docente obj) {
-		log.info("==> insertaDocente ==> ID : " + obj.getIdDocente());
-		log.info("==> insertaDocente ==> DNI : " + obj.getDni());
-		log.info("==> insertaDocente ==> Nombre : " + obj.getNombre());
 		Map<String, Object> salida = new HashMap<>();
 		try {
-			if (obj.getIdDocente() != 0) {
-				salida.put("mensaje", "El ID del Docente debe ser cero");
-				return ResponseEntity.ok(salida);
-			}
-
-			List<Docente> lista = null;
-
-			lista = docenteService.listaPorDni(obj.getDni());
-			if (!CollectionUtils.isEmpty(lista)) {
-				salida.put("mensaje", "El DNI ya existe : " + obj.getDni());
-				return ResponseEntity.ok(salida);
-			}
-			lista = docenteService.listaPorNombre(obj.getNombre());
-			if (!CollectionUtils.isEmpty(lista)) {
-				salida.put("mensaje", "El Nombre ya existe : " + obj.getNombre());
-				return ResponseEntity.ok(salida);
-			}
-
-			Docente objSalida = docenteService.insertaActualizaDocente(obj);
+			obj.setIdDocente(0);
+			Docente objSalida =  service.insertaActualizaDocente(obj);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			} else {
 				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
@@ -96,17 +63,9 @@ public class CrudDocenteController {
 	@PutMapping("/actualizaDocente")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> actualizaDocente(@RequestBody Docente obj) {
-		log.info("==> actualizaDocente ==> ID : " + obj.getIdDocente());
-		log.info("==> actualizaDocente ==> DNI : " + obj.getDni());
-		log.info("==> actualizaDocente ==> Nombre : " + obj.getNombre());
-		log.info("==> actualizaDocente ==> Estado : " + obj.getEstado());
 		Map<String, Object> salida = new HashMap<>();
 		try {
-			if (obj.getIdDocente() == 0) {
-				salida.put("mensaje", "El ID del Docente debe ser diferente cero");
-				return ResponseEntity.ok(salida);
-			}
-			Docente objSalida = docenteService.insertaActualizaDocente(obj);
+			Docente objSalida =  service.insertaActualizaDocente(obj);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
 			} else {
@@ -118,6 +77,12 @@ public class CrudDocenteController {
 		}
 		return ResponseEntity.ok(salida);
 	}
-
 	
 }
+
+
+
+
+
+
+

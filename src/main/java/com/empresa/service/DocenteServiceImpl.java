@@ -21,38 +21,16 @@ public class DocenteServiceImpl implements DocenteService {
 	}
 
 
-
 	@Override
-	public List<Docente> listaPorDni(String dni) {
-		return repository.findByDni(dni);
+	public Docente insertaActualizaDocente(Docente docente) {
+		return repository.save(docente);
 	}
 
 
 	@Override
-	public List<Docente> listaPorNombre(String nombre) {
-		return repository.findByNombre(nombre);
+	public List<Docente> listaDocentePorNombreLike(String nombre) {
+		return repository.listaPorNombreLike(nombre);
 	}
-
-
-	@Override
-	public List<Docente> listaPorNombreLike(String nombre) {
-		return repository.findByNombreLike(nombre);
-	}
-
-
-	@Override
-	public Docente insertaActualizaDocente(Docente obj) {
-		return repository.save(obj);
-	}
-
-
-	@Override
-	public List<Docente> listaTodos() {
-		return repository.findAll();
-	}
-
-
-
 
 
 
