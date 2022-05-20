@@ -34,7 +34,11 @@ public class CrudDocenteController {
 	public ResponseEntity<List<Docente>> listaDocentePorNombreLike(@PathVariable("nom") String nom) {
 		List<Docente> lista  = null;
 		try {
-			lista = service.listaDocentePorNombreLike("%" + nom + "%");
+			if (nom.equals("todos")) {
+				lista = service.listaDocentePorNombreLike("%");
+			}else {
+				lista = service.listaDocentePorNombreLike("%" + nom + "%");	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
