@@ -1,5 +1,6 @@
 package com.empresa.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,8 @@ public class CrudDocenteController {
 		Map<String, Object> salida = new HashMap<>();
 		try {
 			obj.setIdDocente(0);
+			obj.setFechaRegistro(new Date());
+			obj.setEstado(1);
 			Docente objSalida =  service.insertaActualizaDocente(obj);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
