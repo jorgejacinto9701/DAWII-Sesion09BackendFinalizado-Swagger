@@ -32,6 +32,10 @@ public class DocenteServiceImpl implements DocenteService {
 		return repository.listaPorNombreLike(nombre);
 	}
 
+	@Override
+	public void eliminaDocente(int idDocente) {
+		repository.deleteById(idDocente);
+	}
 
 
 }

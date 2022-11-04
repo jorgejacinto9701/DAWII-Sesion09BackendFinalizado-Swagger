@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -81,6 +82,21 @@ public class CrudDocenteController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+		}
+		return ResponseEntity.ok(salida);
+	}
+	
+	
+	@DeleteMapping("/eliminaDocente/{id}")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> eliminaDocente(@PathVariable("id") int idDocente) {
+		Map<String, Object> salida = new HashMap<>();
+		try {
+			service.eliminaDocente(idDocente);
+			salida.put("mensaje", Constantes.MENSAJE_ELI_EXITOSO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_ELI_ERROR);
 		}
 		return ResponseEntity.ok(salida);
 	}
